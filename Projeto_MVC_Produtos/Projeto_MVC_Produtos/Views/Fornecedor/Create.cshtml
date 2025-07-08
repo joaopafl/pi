@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Fornecedor";
+}
+@model Projeto_MVC_Produtos.Models.Fornecedor
+
+<div class="text-center">
+    <h1>Cadastro de Produtos</h1>
+    <form asp-action="Create" method="post">
+        <label>ID</label>
+        <input asp-for="Id"/>
+        <label>Razão Social</label>
+        <input asp-for="Razaosocial" />
+        <label>CNPJ</label>
+        <input asp-for="Cnpj"/>
+        <label>Endereço</label>
+        <input asp-for="Endereco"/>
+        <label>Telefone</label>
+        <input asp-for="Telefone"/>
+        <button type="submit">Salvar</button>
+    </form>
+</div>

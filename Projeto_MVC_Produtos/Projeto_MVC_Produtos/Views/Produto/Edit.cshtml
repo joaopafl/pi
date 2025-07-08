@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Produtos";
+}
+
+<div class="text-center">
+    <h1>CRUD de Produtos</h1>
+    @model Projeto_MVC_Produtos.Models.Produto
+
+    <div class="text-center">
+        <h1>Cadastro de Produtos</h1>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <label>Código</label>
+            <input asp-for="Codigo" />
+            <label>Nome</label>
+            <input asp-for="Nome" />
+            <label>Descrição</label>
+            <input asp-for="Descricao" />
+            <label>Categoria</label>
+            <input asp-for="Categoria" />
+            <label>Preço</label>
+            <input asp-for="Preco" />
+            <button type="submit">Salvar</button>
+        </form>
+</div>

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Fornecedor";
+}
+
+@model Projeto_MVC_Produtos.Models.Fornecedor
+
+<div class="text-center">
+    <h1>Excluir Produto</h1>
+    <p>Tem certeza que deseja excluir o Fornecedor @Model.Razaosocial?</p>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit">Confirmar Exclusão</button>
+    </form>
+</div>

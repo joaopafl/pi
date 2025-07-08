@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Produtos";
+}
+@model IEnumerable<Projeto_MVC_Produtos.Models.Produto>
+<div class="text-center">
+    <h1>CRUD de Produtos</h1>
+    <a href="/Produto/Create">Cadastrar Produto</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nome</th>   
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+        </tr>
+        @foreach(var produto in Model){
+            <tr>
+                <td>@produto.Id</td>
+                <td>@produto.Codigo</td>
+                <td>@produto.Nome</td>
+                <td>@produto.Descricao</td>
+                <td>@produto.Categoria</td>
+                <td>@produto.Preco</td>
+                <td>
+                    <a href="/Produto/Edit/@produto.Id">Editar</a>
+                    <a href="/Produto/Delete/@produto.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
