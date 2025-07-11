@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Responsáveis";
+}
+@model Pi_Odonto.Models.Responsavel
+
+<div class="text-center">
+    <h1>Cadastro de Responsáveis</h1>
+    <form asp-action="Create" method="post">
+        <label>ID</label>
+        <input asp-for="Id" />
+
+        <label>Nome</label>
+        <input asp-for="Nome" />
+
+        <label>CPF</label>
+        <input asp-for="Cpf" />
+
+        <label>Telefone</label>
+        <input asp-for="Telefone" />
+
+        <label>Email</label>
+        <input asp-for="Email" />
+
+        <label>Endereço</label>
+        <input asp-for="Endereco" />
+
+        <button type="submit">Salvar</button>
+    </form>
+</div>

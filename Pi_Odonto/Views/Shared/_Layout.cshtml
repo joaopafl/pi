@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Cadastro de responsaveis</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cdefs%3E%3ClinearGradient id='blueGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230d6efd;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23084298;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2 C12 2, 9 5, 9 9 L9 16 C9 18, 9.5 20, 10.5 21.5 C11.5 23, 13 24, 14 25.5 C14.5 26.5, 15 27.5, 15.5 28.5 C15.7 29, 15.9 29.5, 16 30 C16.1 29.5, 16.3 29, 16.5 28.5 C17 27.5, 17.5 26.5, 18 25.5 C19 24, 20.5 23, 21.5 21.5 C22.5 20, 23 18, 23 16 L23 9 C23 5, 20 2, 16 2 Z' fill='url(%23blueGradient)' stroke='%23084298' stroke-width='0.5'/%3E%3Cellipse cx='14' cy='7' rx='2' ry='3' fill='rgba(255,255,255,0.3)' /%3E%3Cpath d='M13 25 C13 26, 13 27, 12.5 28 C12 29, 11.5 29.5, 11 30' fill='none' stroke='url(%23blueGradient)' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M19 25 C19 26, 19 27, 19.5 28 C20 29, 20.5 29.5, 21 30' fill='none' stroke='url(%23blueGradient)' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Pi_Odonto.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Pi_Odonto</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Responsavel" asp-action="Index">Responsavel</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Pi_Odonto - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Login - Área do Responsável";
+}
+@model Pi_Odonto.Models.LoginViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-circle"></i> Área do Responsável
+                    </h3>
+                    <p class="mb-0 mt-2">Entre com seus dados</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="seu@email.com" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Senha" class="form-label">
+                                <i class="fas fa-lock"></i> Senha
+                            </label>
+                            <input asp-for="Senha" type="password" class="form-control" placeholder="Sua senha" required />
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="LembrarMe" class="form-check-input" type="checkbox" />
+                            <label asp-for="LembrarMe" class="form-check-label">
+                                Lembrar-me por 30 dias
+                            </label>
+                        </div>
+
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt"></i> Entrar
+                            </button>
+                        </div>
+
+                        <div class="text-center">
+                            <small class="text-muted">
+                                Não tem conta? <a href="/Cadastro" class="text-primary">Cadastre-se aqui</a>
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+}

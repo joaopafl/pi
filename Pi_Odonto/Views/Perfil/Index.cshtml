@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Meu Perfil";
+}
+@model Pi_Odonto.Models.Responsavel
+
+<div class="container mt-4">
+    @if (TempData["Sucesso"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["Sucesso"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-user-circle text-primary" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5>@Model.Nome</h5>
+                    <p class="text-muted">@Model.Email</p>
+
+                    <div class="d-grid gap-2">
+                        <a href="/Perfil/Editar" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> Editar Perfil
+                        </a>
+                        <form asp-action="Logout" asp-controller="Auth" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger w-100">
+                                <i class="fas fa-sign-out-alt"></i> Sair
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user"></i> Meus Dados
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-user"></i> Nome Completo:
+                                </label>
+                                <p class="form-control-plaintext">@Model.Nome</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-id-card"></i> CPF:
+                                </label>
+                                <p class="form-control-plaintext">
+                                    @if (Model.Cpf.Length == 11)
+                                    {
+                                        @($"{Model.Cpf.Substring(0, 3)}.{Model.Cpf.Substring(3, 3)}.{Model.Cpf.Substring(6, 3)}-{Model.Cpf.Substring(9, 2)}")
+                                    }
+                                    else
+                                    {
+                                        @Model.Cpf
+                                    }
+                                </p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-phone"></i> Telefone:
+                                </label>
+                                <p class="form-control-plaintext">
+                                    @if (Model.Telefone.Length == 11)
+                                    {
+                                        @($"({Model.Telefone.Substring(0, 2)}) {Model.Telefone.Substring(2, 5)}-{Model.Telefone.Substring(7, 4)}")
+                                    }
+                                    else
+                                    {
+                                        @Model.Telefone
+                                    }
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-envelope"></i> Email:
+                                </label>
+                                <p class="form-control-plaintext">@Model.Email</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-map-marker-alt"></i> Endereço:
+                                </label>
+                                <p class="form-control-plaintext">@Model.Endereco</p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-calendar"></i> Data de Cadastro:
+                                </label>
+                                <p class="form-control-plaintext">@Model.DataCadastro.ToString("dd/MM/yyyy HH:mm")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Próximos Agendamentos (placeholder para futuras funcionalidades) -->
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-alt"></i> Próximos Agendamentos
+                    </h5>
+                </div>
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-plus text-muted" style="font-size: 3rem;"></i>
+                    <p class="text-muted mt-3">Funcionalidade de agendamentos em desenvolvimento.</p>
+                    <p class="text-muted">Entre em contato conosco para agendar sua consulta.</p>
+                    <div class="alert alert-info">
+                        <i class="fas fa-phone"></i> <strong>Telefone:</strong> (11) 3456-7890<br>
+                        <i class="fas fa-envelope"></i> <strong>Email:</strong> contato@piodonto.com.br
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+}

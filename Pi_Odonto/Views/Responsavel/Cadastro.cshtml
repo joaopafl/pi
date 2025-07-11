@@ -1,0 +1,155 @@
+﻿@{
+    ViewData["Title"] = "Cadastro de Responsável";
+}
+@model Pi_Odonto.Models.Responsavel
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="mb-0">
+                        <i class="fas fa-user-plus"></i> Cadastro de Responsável
+                    </h2>
+                    <p class="mb-0 mt-2">Preencha todos os campos para se cadastrar</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Cadastro" method="post" id="cadastroForm">
+                        <div asp-validation-summary="All" class="alert alert-danger d-none"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nome" class="form-label">
+                                <i class="fas fa-user"></i> Nome Completo <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Nome" class="form-control" placeholder="Digite seu nome completo" maxlength="100" required />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Cpf" class="form-label">
+                                <i class="fas fa-id-card"></i> CPF <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Cpf" class="form-control" placeholder="000.000.000-00" id="cpfInput" maxlength="14" required />
+                            <span asp-validation-for="Cpf" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Telefone" class="form-label">
+                                <i class="fas fa-phone"></i> Telefone <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Telefone" class="form-control" placeholder="(11) 99999-9999" id="telefoneInput" maxlength="15" required />
+                            <span asp-validation-for="Telefone" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope"></i> Email <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="seu@email.com" maxlength="100" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Senha" class="form-label">
+                                <i class="fas fa-lock"></i> Senha <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Senha" type="password" class="form-control" placeholder="Digite sua senha" minlength="6" required />
+                            <small class="form-text text-muted">Mínimo de 6 caracteres</small>
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmarSenha" class="form-label">
+                                <i class="fas fa-lock"></i> Confirmar Senha <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="ConfirmarSenha" type="password" class="form-control" placeholder="Confirme sua senha" minlength="6" required />
+                            <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Endereco" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i> Endereço <span class="text-danger">*</span>
+                            </label>
+                            <textarea asp-for="Endereco" class="form-control" rows="3" placeholder="Rua, número, bairro, cidade, CEP" maxlength="200" required></textarea>
+                            <span asp-validation-for="Endereco" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Cadastrar
+                            </button>
+                            <a href="/" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Máscara para CPF
+        document.getElementById('cpfInput').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                e.target.value = value;
+            }
+        });
+
+        // Máscara para telefone
+        document.getElementById('telefoneInput').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                e.target.value = value;
+            }
+        });
+
+        // Validação do formulário
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            let isValid = true;
+            const inputs = this.querySelectorAll('input[required], textarea[required]');
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                }
+            });
+
+            // Validação específica do CPF
+            const cpfInput = document.getElementById('cpfInput');
+            const cpf = cpfInput.value.replace(/\D/g, '');
+            if (cpf.length !== 11) {
+                cpfInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+                document.querySelector('.alert-danger').classList.remove('d-none');
+                document.querySelector('.alert-danger').innerHTML = 'Por favor, preencha todos os campos obrigatórios corretamente.';
+            }
+        });
+
+        // Mostrar validação em tempo real
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                }
+            });
+        });
+    </script>
+}
