@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Pi_Odonto.Models.Crianca>
+@{
+    ViewData["Title"] = "Minhas Crianças";
+}
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        background: #17a2b8;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .crianca-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .crianca-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-warning {
+        background: #ffc107;
+        color: black;
+    }
+
+    .btn-info {
+        background: #17a2b8;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .crianca-header {
+        color: #17a2b8;
+        margin-bottom: 15px;
+    }
+
+    .crianca-info {
+        margin-bottom: 8px;
+    }
+</style>
+
+<div class="container">
+    <div class="header">
+        <h1 style="margin: 0; display: flex; justify-content: space-between; align-items: center;">
+            <span>👶 Minhas Crianças</span>
+            <a href="/Responsavel/Create" class="btn btn-info">➕ Adicionar Criança</a>
+        </h1>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="crianca-grid">
+            @foreach (var crianca in Model)
+            {
+                <div class="crianca-card">
+                    <h3 class="crianca-header">@crianca.Nome</h3>
+
+                    <div class="crianca-info">
+                        <strong>Parentesco:</strong> @crianca.Parentesco
+                    </div>
+
+                    <div class="crianca-info">
+                        <strong>Data de Nascimento:</strong> @crianca.DataNascimento.ToString("dd/MM/yyyy")
+                        <span class="text-muted">(@(DateTime.Now.Year - crianca.DataNascimento.Year) anos)</span>
+                    </div>
+
+                    <div class="crianca-info">
+                        <strong>CPF:</strong> @crianca.Cpf
+                    </div>
+
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <a href="/Perfil/DetalhesCrianca/@crianca.Id" class="btn btn-primary">👁️ Ver</a>
+                        <a href="/Perfil/EditarCrianca/@crianca.Id" class="btn btn-warning">✏️ Editar</a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div style="background: #d1ecf1; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            <strong>Total:</strong> @Model.Count() criança@(Model.Count() > 1 ? "s" : "") cadastrada@(Model.Count() > 1 ? "s" : "").
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div style="font-size: 4em; margin-bottom: 20px;">👶</div>
+            <h2>Nenhuma criança cadastrada</h2>
+            <p>Você ainda não tem crianças cadastradas em sua conta.</p>
+            <a href="/Responsavel/Create" class="btn btn-info" style="font-size: 1.2em; padding: 12px 24px;">
+                ➕ Cadastrar Primera Criança
+            </a>
+        </div>
+    }
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+        <a href="/Perfil" class="btn btn-secondary">⬅️ Voltar ao Perfil</a>
+    </div>
+</div>

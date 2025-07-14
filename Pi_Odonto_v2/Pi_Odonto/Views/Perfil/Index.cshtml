@@ -1,0 +1,673 @@
+﻿@{
+    ViewData["Title"] = "Minha Família - Casa Espírita Trabalhadores de Jesus";
+}
+@model Pi_Odonto.Models.Responsavel
+
+<style>
+    :root {
+        --cor-primaria: #4A90E2;
+        --cor-secundaria: #66BB6A;
+        --cor-accent: #FFD700;
+        --cor-paz: #E3F2FD;
+        --cor-esperanca: #E8F5E8;
+        --cor-texto: #2C3E50;
+        --cor-texto-suave: #5D6D7E;
+        --cor-amor: #FF6B8A;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, var(--cor-paz) 0%, var(--cor-esperanca) 100%);
+        min-height: 100vh;
+        position: relative;
+    }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" patternUnits="userSpaceOnUse" width="30" height="30"><path d="M15,10 C11,6 7,10 10,15 C15,20 20,15 23,10 C20,6 15,10 15,10" fill="rgba(255,215,0,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>') repeat;
+            animation: float 40s infinite linear;
+            z-index: -1;
+        }
+
+    @@keyframes float {
+        0% {
+            transform: translateX(0) translateY(0);
+        }
+
+        100% {
+            transform: translateX(-30px) translateY(-30px);
+        }
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+        }
+
+    .page-title {
+        position: relative;
+        z-index: 2;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .card-custom {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+        .card-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria), var(--cor-accent));
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        }
+
+    .sidebar-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border-top: 4px solid var(--cor-amor);
+        transition: all 0.3s ease;
+    }
+
+        .sidebar-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        }
+
+    .avatar-icon {
+        font-size: 5rem;
+        background: linear-gradient(135deg, var(--cor-primaria), var(--cor-amor));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .user-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+        margin-bottom: 0.5rem;
+    }
+
+    .user-email {
+        color: var(--cor-texto-suave);
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-custom {
+        border-radius: 15px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn-primary-custom {
+        background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+            color: white;
+        }
+
+    .btn-info-custom {
+        background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-accent));
+        color: white;
+        border: none;
+    }
+
+        .btn-info-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 187, 106, 0.4);
+            color: white;
+        }
+
+    .btn-danger-custom {
+        background: transparent;
+        border: 2px solid var(--cor-amor);
+        color: var(--cor-amor);
+    }
+
+        .btn-danger-custom:hover {
+            background: var(--cor-amor);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+        color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 20px 20px 0 0;
+        border: none;
+    }
+
+    .card-header-info {
+        background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-accent));
+    }
+
+    .card-header-warning {
+        background: linear-gradient(135deg, var(--cor-accent), #FF8A65);
+        color: var(--cor-texto);
+    }
+
+    .card-body-custom {
+        padding: 2rem;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: var(--cor-texto);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .info-label i {
+            color: var(--cor-primaria);
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+    .info-value {
+        color: var(--cor-texto-suave);
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .info-value:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .info-value a {
+            color: var(--cor-primaria);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .info-value a:hover {
+                color: var(--cor-secundaria);
+            }
+
+    .child-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        border-left: 4px solid var(--cor-accent);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .child-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+            border-left-color: var(--cor-amor);
+        }
+
+    .child-name {
+        color: var(--cor-primaria);
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .child-name i {
+            margin-right: 0.5rem;
+            color: var(--cor-amor);
+        }
+
+    .child-info {
+        font-size: 0.9rem;
+        color: var(--cor-texto-suave);
+        line-height: 1.6;
+    }
+
+        .child-info div {
+            margin-bottom: 0.3rem;
+        }
+
+        .child-info strong {
+            color: var(--cor-texto);
+        }
+
+    .badge-custom {
+        background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-accent));
+        color: white;
+        border-radius: 15px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+    }
+
+    .alert-custom {
+        background: linear-gradient(135deg, var(--cor-paz), white);
+        border: 1px solid var(--cor-primaria);
+        color: var(--cor-texto);
+        border-radius: 15px;
+        padding: 1.5rem;
+    }
+
+    .alert-success-custom {
+        background: linear-gradient(135deg, var(--cor-esperanca), white);
+        border: 1px solid var(--cor-secundaria);
+        color: var(--cor-texto);
+        border-radius: 15px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--cor-texto-suave);
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--cor-accent);
+            opacity: 0.7;
+        }
+
+    .contact-info {
+        background: linear-gradient(135deg, var(--cor-paz), white);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border-left: 4px solid var(--cor-primaria);
+    }
+
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .fade-in-delay-1 {
+        animation-delay: 0.1s;
+    }
+
+    .fade-in-delay-2 {
+        animation-delay: 0.2s;
+    }
+
+    .fade-in-delay-3 {
+        animation-delay: 0.3s;
+    }
+
+    .fade-in-delay-4 {
+        animation-delay: 0.4s;
+    }
+
+    @@keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-header {
+            padding: 1.5rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-card {
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-body-custom {
+            padding: 1.5rem;
+        }
+
+        .avatar-icon {
+            font-size: 4rem;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">
+            <i class="fas fa-heart me-3"></i>
+            Minha Família Espiritual
+        </h1>
+        <p class="mb-0 opacity-90">Painel de cuidados da Casa Espírita Trabalhadores de Jesus</p>
+    </div>
+</div>
+
+<div class="container">
+    @if (TempData["Sucesso"] != null)
+    {
+        <div class="alert alert-success-custom alert-dismissible fade show fade-in" role="alert">
+            <i class="fas fa-heart text-success me-2"></i> @TempData["Sucesso"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 col-md-4">
+            <div class="sidebar-card fade-in">
+                <i class="fas fa-user-circle avatar-icon"></i>
+                <h5 class="user-name">@Model.Nome</h5>
+                <p class="user-email">@Model.Email</p>
+
+                <div class="d-grid gap-2">
+                    <a href="/Perfil/Editar" class="btn btn-custom btn-primary-custom">
+                        <i class="fas fa-edit me-2"></i> Editar Perfil
+                    </a>
+                    <a href="/Perfil/MinhasCriancas" class="btn btn-custom btn-info-custom">
+                        <i class="fas fa-child me-2"></i> Minhas Crianças
+                    </a>
+                    <form asp-action="Logout" asp-controller="Auth" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-custom btn-danger-custom w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i> Sair
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="col-lg-9 col-md-8">
+            <!-- Dados Pessoais -->
+            <div class="card-custom fade-in fade-in-delay-1">
+                <div class="card-header-custom">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user me-2"></i> Meus Dados
+                    </h4>
+                    <small class="opacity-90">Informações pessoais da família</small>
+                </div>
+                <div class="card-body-custom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-label">
+                                <i class="fas fa-user"></i> Nome Completo
+                            </div>
+                            <div class="info-value">@Model.Nome</div>
+
+                            <div class="info-label">
+                                <i class="fas fa-id-card"></i> CPF
+                            </div>
+                            <div class="info-value">
+                                @if (Model.Cpf.Length == 11)
+                                {
+                                    @($"{Model.Cpf.Substring(0, 3)}.{Model.Cpf.Substring(3, 3)}.{Model.Cpf.Substring(6, 3)}-{Model.Cpf.Substring(9, 2)}")
+                                }
+                                else
+                                {
+                                    @Model.Cpf
+                                }
+                            </div>
+
+                            <div class="info-label">
+                                <i class="fas fa-phone"></i> Telefone
+                            </div>
+                            <div class="info-value">
+                                @if (Model.Telefone.Length == 11)
+                                {
+                                    <a href="tel:@Model.Telefone">
+                                        @($"({Model.Telefone.Substring(0, 2)}) {Model.Telefone.Substring(2, 5)}-{Model.Telefone.Substring(7, 4)}")
+                                    </a>
+                                }
+                                else
+                                {
+                                    @Model.Telefone
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="info-label">
+                                <i class="fas fa-envelope"></i> Email
+                            </div>
+                            <div class="info-value">
+                                <a href="mailto:@Model.Email">@Model.Email</a>
+                            </div>
+
+                            <div class="info-label">
+                                <i class="fas fa-map-marker-alt"></i> Endereço
+                            </div>
+                            <div class="info-value">@Model.Endereco</div>
+
+                            @if (Model.DataCadastro != default(DateTime))
+                            {
+                                <div class="info-label">
+                                    <i class="fas fa-calendar"></i> Membro Desde
+                                </div>
+                                <div class="info-value">@Model.DataCadastro.ToString("dd/MM/yyyy")</div>
+                            }
+
+                            @if (Model.Ativo)
+                            {
+                                <div class="info-label">
+                                    <i class="fas fa-heart"></i> Status na Família
+                                </div>
+                                <div class="info-value">
+                                    <span class="badge-custom">
+                                        <i class="fas fa-check-circle me-1"></i>
+                                        Família Ativa
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Crianças -->
+            <div class="card-custom mt-4 fade-in fade-in-delay-2">
+                <div class="card-header-custom card-header-info">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">
+                                <i class="fas fa-child me-2"></i> Nossas Crianças
+                            </h5>
+                            <small class="opacity-90">Pequenos tesouros da família</small>
+                        </div>
+                        <span class="badge bg-light text-dark fs-6">@(Model.Criancas?.Count ?? 0)</span>
+                    </div>
+                </div>
+                <div class="card-body-custom">
+                    @if (Model.Criancas != null && Model.Criancas.Any())
+                    {
+                        <div class="row">
+                            @foreach (var crianca in Model.Criancas)
+                            {
+                                <div class="col-lg-6 mb-4">
+                                    <div class="child-card">
+                                        <h6 class="child-name">
+                                            <i class="fas fa-child"></i> @crianca.Nome
+                                        </h6>
+                                        <div class="child-info">
+                                            <div>
+                                                <strong>CPF:</strong>
+                                                @if (crianca.Cpf.Length == 11)
+                                                {
+                                                    @($"{crianca.Cpf.Substring(0, 3)}.{crianca.Cpf.Substring(3, 3)}.{crianca.Cpf.Substring(6, 3)}-{crianca.Cpf.Substring(9, 2)}")
+                                                }
+                                                else
+                                                {
+                                                    @crianca.Cpf
+                                                }
+                                            </div>
+                                            <div><strong>Nascimento:</strong> @crianca.DataNascimento.ToString("dd/MM/yyyy")</div>
+                                            <div>
+                                                <strong>Idade:</strong>
+                                                @{
+                                                    var idade = DateTime.Now.Year - crianca.DataNascimento.Year;
+                                                    if (DateTime.Now.DayOfYear < crianca.DataNascimento.DayOfYear) idade--;
+                                                }
+                                                @idade anos
+                                            </div>
+                                            <div><strong>Parentesco:</strong> @crianca.Parentesco</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="/Perfil/MinhasCriancas" class="btn btn-custom btn-primary-custom">
+                                <i class="fas fa-heart me-2"></i> Cuidar das Crianças
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <i class="fas fa-child"></i>
+                            <p>Ainda não há crianças cadastradas na família.</p>
+                            <p class="small mb-4">Cadastre as crianças para que possamos cuidar delas com amor.</p>
+                            <a href="/Perfil/Editar" class="btn btn-custom btn-primary-custom">
+                                <i class="fas fa-plus me-2"></i> Cadastrar Criança
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Seção de Próximos Cuidados -->
+            <div class="card-custom mt-4 fade-in fade-in-delay-3">
+                <div class="card-header-custom card-header-warning">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-heart me-2"></i> Próximos Cuidados
+                    </h5>
+                    <small class="opacity-90">Agendamentos e consultas</small>
+                </div>
+                <div class="card-body-custom">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>Sistema de agendamentos em desenvolvimento.</p>
+                        <p class="small mb-4">Entre em contato conosco para agendar o cuidado da sua família.</p>
+
+                        <div class="contact-info">
+                            <div class="row text-start">
+                                <div class="col-md-6">
+                                    <div class="info-label">
+                                        <i class="fas fa-phone"></i> Telefone
+                                    </div>
+                                    <div class="info-value">
+                                        <a href="tel:1194155-6472">(11) 94155-6472</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i> Endereço
+                                    </div>
+                                    <div class="info-value">
+                                        Av. Professor Flávio Pires de Camargo, 56<br>
+                                        Caetetuba - Atibaia/SP
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-heart text-danger me-1"></i>
+                                    "Cuidamos de você com amor e dedicação"
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Animação de entrada dos elementos
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -20px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            element.style.animationPlayState = 'paused';
+            observer.observe(element);
+        });
+
+        // Efeito hover suave nos cards
+        document.querySelectorAll('.card-custom, .child-card, .sidebar-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Confirmação antes de sair
+        document.querySelector('form[action*="Logout"] button').addEventListener('click', function(e) {
+            if (!confirm('Tem certeza que deseja sair da sua família espiritual?')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+}

@@ -1,0 +1,155 @@
+﻿@{
+    ViewData["Title"] = "Email de Verificação Enviado";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body text-center p-5">
+                    <!-- Ícone de email -->
+                    <div class="mb-4">
+                        <i class="fas fa-envelope-circle-check text-info" style="font-size: 5rem; animation: pulse 2s infinite;"></i>
+                    </div>
+
+                    <!-- Título principal -->
+                    <h1 class="text-info mb-3 fw-bold">Email Enviado!</h1>
+
+                    <!-- Mensagem principal -->
+                    <p class="lead mb-4 text-muted">
+                        Cadastro realizado com sucesso! Enviamos um email de verificação para confirmar seu cadastro.
+                    </p>
+
+                    <!-- Instruções -->
+                    <div class="alert alert-warning mb-4 text-start">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Importante:</strong>
+                        </div>
+                        <ul class="mb-0 small">
+                            <li>Verifique sua caixa de entrada e também o spam/lixo eletrônico</li>
+                            <li>Clique no link no email para confirmar seu cadastro</li>
+                            <li>O link expira em 24 horas</li>
+                        </ul>
+                    </div>
+
+                    <!-- Passos seguintes -->
+                    <div class="alert alert-info mb-4 text-start">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-list-check me-2"></i>
+                            <strong>Próximos passos:</strong>
+                        </div>
+                        <ol class="mb-0 small">
+                            <li>Abra seu email</li>
+                            <li>Clique no link "Confirmar Email"</li>
+                            <li>Aguarde nosso contato em até 24 horas</li>
+                        </ol>
+                    </div>
+
+                    <!-- Botões de ação -->
+                    <div class="d-grid gap-2">
+                        <a href="mailto:" class="btn btn-primary btn-lg" onclick="abrirEmail()">
+                            <i class="fas fa-envelope-open me-2"></i> Abrir Email
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary" onclick="reenviarEmail()">
+                            <i class="fas fa-paper-plane me-2"></i> Reenviar Email
+                        </button>
+                        <a href="/" class="btn btn-outline-info">
+                            <i class="fas fa-home me-2"></i> Voltar ao Início
+                        </a>
+                    </div>
+
+                    <!-- Problema com email? -->
+                    <div class="mt-4 pt-4 border-top">
+                        <h6 class="text-muted mb-3">Não recebeu o email?</h6>
+                        <div class="small text-muted">
+                            <p><strong>Possíveis soluções:</strong></p>
+                            <ul class="text-start">
+                                <li>Verifique a pasta de spam/lixo eletrônico</li>
+                                <li>Aguarde alguns minutos (pode demorar até 10 minutos)</li>
+                                <li>Verifique se o email está correto</li>
+                                <li>Entre em contato conosco: (11) 99999-9999</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        function abrirEmail() {
+            // Detecta o cliente de email padrão
+            if (navigator.userAgent.includes('Mobile')) {
+                // Dispositivo móvel
+                window.location.href = 'mailto:';
+            } else {
+                // Desktop - tenta abrir clientes populares
+                const emailClients = [
+                    'mailto:', // Cliente padrão
+                    'https://mail.google.com',
+                    'https://outlook.live.com',
+                    'https://mail.yahoo.com'
+                ];
+
+                // Abre o cliente padrão
+                window.open(emailClients[0], '_blank');
+            }
+        }
+
+        function reenviarEmail() {
+            if (confirm('Deseja reenviar o email de verificação?')) {
+                // Implementar chamada AJAX para reenviar
+                fetch('/Responsavel/ReenviarEmail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Email reenviado com sucesso!');
+                    } else {
+                        alert('Erro ao reenviar email. Tente novamente.');
+                    }
+                })
+                .catch(error => {
+                    alert('Erro ao reenviar email. Tente novamente.');
+                });
+            }
+        }
+
+        // Auto-refresh da página a cada 30 segundos para verificar se confirmou
+        let refreshCount = 0;
+        setInterval(() => {
+            refreshCount++;
+            if (refreshCount <= 20) { // Para após 10 minutos (20 * 30s)
+                // Você pode implementar uma verificação AJAX aqui se quiser
+                console.log('Verificando status do email...');
+            }
+        }, 30000);
+    </script>
+
+    <style>
+        @@keyframes pulse {
+            0%
+
+        {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+
+        }
+    </style>
+}
